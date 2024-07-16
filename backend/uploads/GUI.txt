@@ -1,0 +1,122 @@
+Certainly, you can design a graphical user interface (GUI) for selling using Java with the JavaFX library. Here's an example program to get you started:
+
+```java
+import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+
+public class SalesGUI extends Application {
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage primaryStage) {
+        primaryStage.setTitle("Sales Calculator");
+
+        GridPane grid = new GridPane();
+        grid.setPadding(new Insets(10, 10, 10, 10));
+        grid.setVgap(8);
+        grid.setHgap(10);
+
+        // Labels
+        Label quantityLabel = new Label("Quantity Sold:");
+        GridPane.setConstraints(quantityLabel, 0, 0);
+
+        Label amountDueLabel = new Label("Amount Due:");
+        GridPane.setConstraints(amountDueLabel, 0, 1);
+
+        Label amountPaidLabel = new Label("Amount Paid:");
+        GridPane.setConstraints(amountPaidLabel, 0, 2);
+
+        // TextFields
+        TextField quantityInput = new TextField();
+        GridPane.setConstraints(quantityInput, 1, 0);
+
+        TextField amountDueInput = new TextField();
+        GridPane.setConstraints(amountDueInput, 1, 1);
+
+        TextField amountPaidInput = new TextField();
+        GridPane.setConstraints(amountPaidInput, 1, 2);
+
+        // Buttons
+        Button calculateButton = new Button("Calculate");
+        GridPane.setConstraints(calculateButton, 1, 3);
+
+        Button clearButton = new Button("Clear");
+        GridPane.setConstraints(clearButton, 2, 3);
+
+        // Event handling for Calculate button
+        calculateButton.setOnAction(e -> {
+            try {
+                double quantity = Double.parseDouble(quantityInput.getText());
+                double amountDue = Double.parseDouble(amountDueInput.getText());
+                double amountPaid = Double.parseDouble(amountPaidInput.getText());
+
+                double change = amountPaid - amountDue;
+
+                if (change >= 0) {
+                    displaySuccessMessage("Success! Change: $" + change);
+                } else {
+                    displayErrorMessage("Insufficient amount paid.");
+                }
+            } catch (NumberFormatException ex) {
+                displayErrorMessage("Invalid input. Please enter numeric values.");
+            }
+        });
+
+        // Event handling for Clear button
+        clearButton.setOnAction(e -> {
+            quantityInput.clear();
+            amountDueInput.clear();
+            amountPaidInput.clear();
+        });
+
+        // Add elements to the grid
+        grid.getChildren().addAll(
+                quantityLabel, amountDueLabel, amountPaidLabel,
+                quantityInput, amountDueInput, amountPaidInput,
+                calculateButton, clearButton
+        );
+
+        Scene scene = new Scene(grid, 300, 200);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    private void displaySuccessMessage(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Success");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    private void displayErrorMessage(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+}
+```
+
+This Java program uses JavaFX to create a simple GUI for selling, including input fields for quantity sold, amount due, and amount paid. It also features "Calculate" and "Clear" buttons for performing calculations and clearing input fields, respectively. The success or error messages are displayed using JavaFX Alert dialogs.
+
+Remember to include the necessary JavaFX libraries in your project for this program to work.
+- Select any one Programming language and design a graphical user interface (GUI) that can be used during selling
+\( [14] \)
+Part B
+- Select the appropriate event where you will write your program that when the user enters the quantity sold, the amount due will be automatically calculated.
+\( [6] \)
+- Write program that will calculate the change of the customer using amount due and the amount paid and display the Success Message.
+[6]
+- Write a program to clear all the textboxes in preparation of the next
+[4]
+- Run you your program and take sereen shots of the GUI before it capturing and take screen shots on the output and submit your work.
+[5]
